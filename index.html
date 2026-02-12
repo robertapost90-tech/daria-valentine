@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pentru Daria 💖</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Comic Sans MS', cursive;
+    text-align: center;
+    background: linear-gradient(-45deg, #ff9ecf, #ff6fb5, #ffb3d9, #ff4da6);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+h1 {
+    margin-top: 100px;
+    font-size: 42px;
+    color: white;
+    text-shadow: 2px 2px 10px #ff0066;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.buttons {
+    margin-top: 40px;
+    position: relative;
+}
+
+button {
+    padding: 15px 35px;
+    font-size: 22px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background: red;
+    color: white;
+    box-shadow: 0 0 15px red;
+}
+
+#yesBtn:hover {
+    transform: scale(1.1);
+}
+
+#noBtn {
+    background: white;
+    color: red;
+    position: absolute;
+}
+
+#letter {
+    display: none;
+    margin-top: 40px;
+    background: white;
+    padding: 40px;
+    width: 85%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    font-size: 18px;
+    line-height: 1.6;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9);}
+    to { opacity: 1; transform: scale(1);}
+}
+
+.heart {
+    position: absolute;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+</style>
+</head>
+<body>
+
+<h1 id="question">Daria, vrei să fii Valentine-ul meu? 💘</h1>
+
+<div class="buttons">
+    <button id="yesBtn">DA 💖</button>
+    <button id="noBtn">NU 😢</button>
+</div>
+
+<div id="letter">
+    <h2>Pentru tine, Daria 💌</h2>
+    <p id="typedText"></p>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const letter = document.getElementById("letter");
+const typedText = document.getElementById("typedText");
+const music = document.getElementById("bgMusic");
+
+// Buton NU fuge
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 100);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// Text scrisoare
+const loveLetter = `
+Daria,
+
+Din momentul în care ai apărut în viața mea, totul s-a schimbat.
+Zâmbetul tău are puterea să îmi transforme cele mai obișnuite zile
+în momente magice. Îmi place felul în care râzi, felul în care vorbești,
+felul în care reușești să faci totul mai frumos doar prin simpla ta prezență.
+
+Mă faci să vreau să fiu o versiune mai bună a mea.
+Mă faci să cred în iubire adevărată.
+Și dacă aș putea alege din nou, te-aș alege pe tine
+de fiecare dată, fără ezitare.
+
+Pe 14 februarie și în fiecare zi după aceea,
+vreau să îți arăt cât de mult însemni pentru mine.
+Vreau să îți ofer grijă, respect, zâmbete și momente de neuitat.
+
+Daria, tu ești cea mai frumoasă poveste
+care mi s-a întâmplat vreodată.
+
+Te ador din toată inima mea. 💖
+`;
+
+// Efect scriere
+function typeWriter(text, i = 0) {
+    if (i < text.length) {
+        typedText.innerHTML += text.charAt(i);
+        setTimeout(() => typeWriter(text, i + 1), 35);
+    }
+}
+
+// Click DA
+yesBtn.addEventListener("click", () => {
+    document.getElementById("question").style.display = "none";
+    document.querySelector(".buttons").style.display = "none";
+    letter.style.display = "block";
+    music.play();
+    typeWriter(loveLetter);
+    explodeHearts();
+});
+
+// Inimioare fundal
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 300);
+
+// Explozie inimioare
+function explodeHearts() {
+    for (let i = 0; i < 50; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "💖";
+        heart.style.position = "absolute";
+        heart.style.left = "50%";
+        heart.style.top = "50%";
+        heart.style.fontSize = "25px";
+        heart.style.transition = "1.5s ease-out";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = Math.random() * 100 + "vh";
+            heart.style.opacity = 0;
+        }, 50);
+
+        setTimeout(() => heart.remove(), 1600);
+    }
+}
+</script>
+
+</body>
+</html>
